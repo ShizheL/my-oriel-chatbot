@@ -178,6 +178,3 @@ if question:
     
     st.subheader("📘 Answer")
     st.markdown(answer)
-
-    with st.expander("🧩 Prompt Context (Debug)"):
-        st.text(prompt)
