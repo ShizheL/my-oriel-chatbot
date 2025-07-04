@@ -151,9 +151,7 @@ def get_rag_answer(prompt):
     )
     return response.choices[0].message.content.strip()
 
-st.set_page_config(page_title="Oriel Freshers RAG Chatbot", page_icon="🦉")
-st.title("Oriel College Freshers Chatbot")
-st.write("Welcome to Oriel College. This is an AI system developed by Orielensis to answer any questions you may have. Please enter your question below.")
+st.write("Thank you for entering your access code. Please enter your question below.")
 
 question = st.text_input("Your Question:")
 
