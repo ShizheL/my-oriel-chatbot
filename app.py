@@ -20,7 +20,7 @@ def save_access_codes(data):
 
 st.set_page_config(page_title="Oriel Freshers RAG Chatbot", page_icon="🦉")
 st.title("Oriel College Freshers Chatbot")
-st.write("Welcome to Oriel College. This is an AI system developed by Orielensis to answer any questions you may have. Please enter your access code below.")
+st.write("Welcome to Oriel College. This is an AI system developed by Orielensis to answer any questions you may have.")
 
 access_data = load_access_codes()
 
