@@ -1,0 +1,614 @@
+[
+  {
+    "section": "",
+    "title": "Opening"
+  },
+  {
+    "section": "1.",
+    "title": "Who’s Who in College"
+  },
+  {
+    "section": "1.1.",
+    "title": "College Officers and Advisors"
+  },
+  {
+    "section": "1.2.",
+    "title": "Administrative and Domestic Staff"
+  },
+  {
+    "section": "2.",
+    "title": "Quick Guide to ‘Who, What and Where’"
+  },
+  {
+    "section": "3.",
+    "title": "Term Dates"
+  },
+  {
+    "section": "4.",
+    "title": "Quick Start Guide for Freshers"
+  },
+  {
+    "section": "4.1.",
+    "title": "Arrival and Freshers’ Week"
+  },
+  {
+    "section": "4.2.",
+    "title": "New Student Registration"
+  },
+  {
+    "section": "4.3.",
+    "title": "College Induction"
+  },
+  {
+    "section": "4.4.",
+    "title": "SharePoint"
+  },
+  {
+    "section": "4.5.",
+    "title": "Paying Your Battels (College Fees)"
+  },
+  {
+    "section": "4.6.",
+    "title": "Getting Your University Card"
+  },
+  {
+    "section": "4.7.",
+    "title": "Email and Pigeonholes"
+  },
+  {
+    "section": "4.8.",
+    "title": "Matriculation"
+  },
+  {
+    "section": "4.9.",
+    "title": "Beginning Your Studies – Undergraduates"
+  },
+  {
+    "section": "4.10.",
+    "title": "Beginning Your Studies – Postgraduates"
+  },
+  {
+    "section": "5.",
+    "title": "Academic Support"
+  },
+  {
+    "section": "5.1.",
+    "title": "Annual Student Registration"
+  },
+  {
+    "section": "5.2.",
+    "title": "Students’ Contact Details"
+  },
+  {
+    "section": "5.3.",
+    "title": "Academic Dress (Gowns and Sub Fusc)"
+  },
+  {
+    "section": "5.4.",
+    "title": "Checking Email and Pigeonholes"
+  },
+  {
+    "section": "5.5.",
+    "title": "University Exams"
+  },
+  {
+    "section": "5.6.",
+    "title": "Reproduction of Copyright Material (Photocopies and Downloads)"
+  },
+  {
+    "section": "5.7.",
+    "title": "Employment"
+  },
+  {
+    "section": "5.8.",
+    "title": "Certificates, Transcripts and References"
+  },
+  {
+    "section": "5.9.",
+    "title": "Tutorials – Undergraduates"
+  },
+  {
+    "section": "5.10.",
+    "title": "What to Expect from your Tutor – Undergraduates"
+  },
+  {
+    "section": "5.11.",
+    "title": "Vacations and Work – Undergraduates"
+  },
+  {
+    "section": "5.12.",
+    "title": "Undergraduate Collections (College Exams)"
+  },
+  {
+    "section": "5.13.",
+    "title": "Academic Reports – Undergraduates"
+  },
+  {
+    "section": "5.14.",
+    "title": "Termly Meeting with your Tutor (Tutor’s Collections) – Undergraduates"
+  },
+  {
+    "section": "5.15.",
+    "title": "Annual Meeting with the Provost (Provosts’ Collections) – Undergraduates"
+  },
+  {
+    "section": "5.16.",
+    "title": "Feedback on Tutorials and Classes – Undergraduates"
+  },
+  {
+    "section": "5.17.",
+    "title": "Complaints about Tutorials and Classes – Undergraduates"
+  },
+  {
+    "section": "5.18.",
+    "title": "Extra-Curricular Activities – Undergraduates"
+  },
+  {
+    "section": "5.19.",
+    "title": "Changing Course – Undergraduates"
+  },
+  {
+    "section": "5.20.",
+    "title": "Academic Reports – Postgraduates"
+  },
+  {
+    "section": "5.21.",
+    "title": "Annual Meeting with the Provost or Tutor for Graduates – Postgraduate Collections"
+  },
+  {
+    "section": "5.22.",
+    "title": "Academic Feedback – Postgraduates"
+  },
+  {
+    "section": "5.23.",
+    "title": "Complaints – Postgraduates"
+  },
+  {
+    "section": "5.24.",
+    "title": "Changing Course – Postgraduates"
+  },
+  {
+    "section": "5.25.",
+    "title": "Graduate Progression Forms (GSO Forms)"
+  },
+  {
+    "section": "6.",
+    "title": "Exams"
+  },
+  {
+    "section": "6.1.",
+    "title": "Entries for University (Public) Examinations"
+  },
+  {
+    "section": "6.2.",
+    "title": "Alternative Arrangements for University Examinations"
+  },
+  {
+    "section": "6.3.",
+    "title": "Residence Requirements for Exams"
+  },
+  {
+    "section": "6.4.",
+    "title": "Exam Results"
+  },
+  {
+    "section": "7.",
+    "title": "Scholarships, Exhibitions and Prizes/Awards"
+  },
+  {
+    "section": "7.1.",
+    "title": "Awards – Undergraduates"
+  },
+  {
+    "section": "7.2.",
+    "title": "Scholarships – Postgraduates"
+  },
+  {
+    "section": "8.",
+    "title": "Academic Disciplinary Matters"
+  },
+  {
+    "section": "8.1.",
+    "title": "Unsatisfactory Work – Undergraduates"
+  },
+  {
+    "section": "8.2.",
+    "title": "Academic Disciplinary Procedures (College Bylaw XII Part B)"
+  },
+  {
+    "section": "8.3.",
+    "title": "Plagiarism"
+  },
+  {
+    "section": "9.",
+    "title": "Health, Welfare and Disability"
+  },
+  {
+    "section": "9.1.",
+    "title": "Tutors/College Advisor"
+  },
+  {
+    "section": "9.2.",
+    "title": "The Welfare Team/College Deans"
+  },
+  {
+    "section": "9.3.",
+    "title": "Academic Office"
+  },
+  {
+    "section": "9.4.",
+    "title": "University Support"
+  },
+  {
+    "section": "9.5.",
+    "title": "Undergraduate Welfare Support"
+  },
+  {
+    "section": "9.6.",
+    "title": "Postgraduate Welfare Support"
+  },
+  {
+    "section": "9.7.",
+    "title": "Medical Services and College Nurse"
+  },
+  {
+    "section": "9.8.",
+    "title": "Accidents or Sudden Illness"
+  },
+  {
+    "section": "9.9.",
+    "title": "Student Counselling Services"
+  },
+  {
+    "section": "9.10.",
+    "title": "College Disability/Chronic Illness Contacts"
+  },
+  {
+    "section": "9.11.",
+    "title": "Estranged Students"
+  },
+  {
+    "section": "10.",
+    "title": "College Accommodation & Residency Information"
+  },
+  {
+    "section": "10.1.",
+    "title": "Council Tax Exemption"
+  },
+  {
+    "section": "10.2.",
+    "title": "Storage of Personal Belongings"
+  },
+  {
+    "section": "10.3.",
+    "title": "Important Accommodation Rules and Information"
+  },
+  {
+    "section": "10.4.",
+    "title": "Reporting Problems with your Room"
+  },
+  {
+    "section": "10.5.",
+    "title": "Television Licences"
+  },
+  {
+    "section": "10.6.",
+    "title": "Delivery of Goods to the College"
+  },
+  {
+    "section": "10.7.",
+    "title": "College Gates – Opening and Closing"
+  },
+  {
+    "section": "10.8.",
+    "title": "Guests in College and Visiting Hours"
+  },
+  {
+    "section": "10.9.",
+    "title": "Cooking"
+  },
+  {
+    "section": "10.10.",
+    "title": "Fridges"
+  },
+  {
+    "section": "10.11.",
+    "title": "Heaters"
+  },
+  {
+    "section": "10.12.",
+    "title": "Pianos"
+  },
+  {
+    "section": "10.13.",
+    "title": "Room Cleaning and College Domestic Staff (Scouts)"
+  },
+  {
+    "section": "10.14.",
+    "title": "Flags"
+  },
+  {
+    "section": "10.15.",
+    "title": "Rooms in College – Undergraduates"
+  },
+  {
+    "section": "10.16.",
+    "title": "Room Ballot – Undergraduates"
+  },
+  {
+    "section": "10.17.",
+    "title": "Living Out - Undergraduates"
+  },
+  {
+    "section": "10.18.",
+    "title": "Room Charges – Undergraduates"
+  },
+  {
+    "section": "10.19.",
+    "title": "Vacation Residence – Undergraduates"
+  },
+  {
+    "section": "10.20.",
+    "title": "Rooms in College – Postgraduates"
+  },
+  {
+    "section": "10.21.",
+    "title": "Room Charges – Postgraduates"
+  },
+  {
+    "section": "10.22.",
+    "title": "Living Out – Postgraduates"
+  },
+  {
+    "section": "10.23.",
+    "title": "Vacation Residence – Postgraduates"
+  },
+  {
+    "section": "10.24.",
+    "title": "Summer Schools and Conferences"
+  },
+  {
+    "section": "11.",
+    "title": "Finance and Funding"
+  },
+  {
+    "section": "11.1.",
+    "title": "Financial Help and Advice"
+  },
+  {
+    "section": "11.2.",
+    "title": "Paying your Tuition Fees"
+  },
+  {
+    "section": "11.3.",
+    "title": "Battels"
+  },
+  {
+    "section": "11.4.",
+    "title": "Financial Support/Aid"
+  },
+  {
+    "section": "11.5.",
+    "title": "Travel Grants – Undergraduates and Postgraduates"
+  },
+  {
+    "section": "11.6.",
+    "title": "Vacation Grants – Undergraduates"
+  },
+  {
+    "section": "11.7.",
+    "title": "Funding for Additional Courses"
+  },
+  {
+    "section": "11.8.",
+    "title": "Sports Funding"
+  },
+  {
+    "section": "12.",
+    "title": "College Facilities and Services"
+  },
+  {
+    "section": "12.1.",
+    "title": "Meals"
+  },
+  {
+    "section": "12.2.",
+    "title": "Formal Hall Attire"
+  },
+  {
+    "section": "12.3.",
+    "title": "Food Allergies and Special Requirements"
+  },
+  {
+    "section": "12.4.",
+    "title": "College Bar"
+  },
+  {
+    "section": "12.5.",
+    "title": "Junior Common Room (JCR)"
+  },
+  {
+    "section": "12.6.",
+    "title": "Middle Common Room (MCR)"
+  },
+  {
+    "section": "12.7.",
+    "title": "Libraries"
+  },
+  {
+    "section": "12.8.",
+    "title": "Information Technology"
+  },
+  {
+    "section": "12.9.",
+    "title": "Chapel"
+  },
+  {
+    "section": "12.10.",
+    "title": "Music"
+  },
+  {
+    "section": "12.11.",
+    "title": "Sports Facilities"
+  },
+  {
+    "section": "12.12.",
+    "title": "Bicycles and Bicycle Storage"
+  },
+  {
+    "section": "12.13.",
+    "title": "Cars and Motorcycles"
+  },
+  {
+    "section": "12.14.",
+    "title": "Booking Rooms in College"
+  },
+  {
+    "section": "12.15.",
+    "title": "Lawns"
+  },
+  {
+    "section": "13.",
+    "title": "Security and Safety"
+  },
+  {
+    "section": "13.1.",
+    "title": "College Security"
+  },
+  {
+    "section": "13.2.",
+    "title": "Insurance of Personal Property"
+  },
+  {
+    "section": "13.3.",
+    "title": "Fire Precautions"
+  },
+  {
+    "section": "13.4.",
+    "title": "Safety on the River"
+  },
+  {
+    "section": "14.",
+    "title": "Living as Part of the Oriel Community – some principles and rules"
+  },
+  {
+    "section": "14.1.",
+    "title": "Senior Dean and Junior Deans"
+  },
+  {
+    "section": "14.2.",
+    "title": "Leave of Absence/Staying out of College"
+  },
+  {
+    "section": "14.3.",
+    "title": "Entertaining and Guests"
+  },
+  {
+    "section": "14.4.",
+    "title": "College Clubs and Societies"
+  },
+  {
+    "section": "14.5.",
+    "title": "Music and Noise in College"
+  },
+  {
+    "section": "14.6.",
+    "title": "Alcohol in College"
+  },
+  {
+    "section": "14.7.",
+    "title": "Smoking"
+  },
+  {
+    "section": "14.8.",
+    "title": "Drugs in College"
+  },
+  {
+    "section": "14.9.",
+    "title": "Respect for Privacy"
+  },
+  {
+    "section": "14.10.",
+    "title": "Publications and Social Media"
+  },
+  {
+    "section": "14.11.",
+    "title": "Legal Disputes"
+  },
+  {
+    "section": "14.12.",
+    "title": "Firearms and Other Weapons"
+  },
+  {
+    "section": "15.",
+    "title": "Specific Legal Issues Concerning Students"
+  },
+  {
+    "section": "15.1.",
+    "title": "Freedom of Speech"
+  },
+  {
+    "section": "15.2.",
+    "title": "Harassment"
+  },
+  {
+    "section": "15.3.",
+    "title": "Prevent Duty"
+  },
+  {
+    "section": "15.4.",
+    "title": "Staff-Student Relationships"
+  },
+  {
+    "section": "16.",
+    "title": "Graduation and Completion of Course"
+  },
+  {
+    "section": "16.1.",
+    "title": "Graduation – Undergraduates and Postgraduate Taught Students"
+  },
+  {
+    "section": "16.2.",
+    "title": "Graduation – Postgraduate Research Students"
+  },
+  {
+    "section": "16.3.",
+    "title": "Graduation Lunches and Receptions"
+  },
+  {
+    "section": "16.4.",
+    "title": "After you Leave"
+  },
+  {
+    "section": "16.5.",
+    "title": "Fund-raising"
+  },
+  {
+    "section": "APPENDIX 1",
+    "title": "Oriel College Code of Ethics"
+  },
+  {
+    "section": "APPENDIX 2",
+    "title": "College Equality and Diversity Statement"
+  },
+  {
+    "section": "APPENDIX 3",
+    "title": "Oriel Prizes and Awards"
+  },
+  {
+    "section": "APPENDIX 4",
+    "title": "Student Complaints Procedures"
+  },
+  {
+    "section": "APPENDIX 5",
+    "title": "Academic Disciplinary Procedures 2022-23 (College Bylaw XII Part B)"
+  },
+  {
+    "section": "APPENDIX 6",
+    "title": "Non-Academic Disciplinary Procedures"
+  },
+  {
+    "section": "APPENDIX 7",
+    "title": "Oxford Terminology"
+  }
+]
