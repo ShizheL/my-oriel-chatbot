@@ -4,9 +4,16 @@ import re
 import os
 from dotenv import load_dotenv
 import streamlit as st
+import hashlib
+
+# Function to hash the access code
+def hash_access_code(code):
+    return hashlib.sha256(code.encode('utf-8')).hexdigest()
 
 # ACCESS CHECK
 ACCESS_CODES_FILE = "access_codes.json"
+
+st.session_state.inChina = False
 
 def load_access_codes():
     if not os.path.exists(ACCESS_CODES_FILE):
@@ -30,8 +37,9 @@ if "access_granted" not in st.session_state:
 if not st.session_state.access_granted:
     code = st.text_input("Enter your access code:")
     if st.button("Submit Code"):
-        if code in access_data:
-            st.session_state.access_code = code
+        hashed_code = hash_access_code(code)  # Hash the entered code
+        if hashed_code in access_data:  # Check the hash in access_data
+            st.session_state.access_code = hashed_code
             st.session_state.access_granted = True
             st.rerun()
         else:
@@ -41,7 +49,8 @@ if not st.session_state.access_granted:
 #MAIN PROGRAM
 load_dotenv()  # Load from .env file
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+clientGPT = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+clientDS = OpenAI(api_key=os.getenv("DEEPSEEK_API_KEY"), base_url="https://api.deepseek.com")
 
 with open("handbook_toc.json", encoding="utf-8") as f:
     toc = json.load(f)
@@ -56,14 +65,30 @@ def initial_relevant_sections(user_question):
     user = "Here is a table of contents from a student handbook: " + toc_string + "\nPlease give me all the sections that are the most likely to contain the answer to this question: \"" + user_question + "\"\nReturn only a Python list of only the section numbers (e.g. [\"1.2.\", \"2.3.\", \"APPENDIX 1\"])."
     
     for _ in range(3):
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": system},
-                {"role": "user", "content": user}
-            ],
-            temperature=0.2
-        )
+        try:
+            if not st.session_state.inChina:
+                response = clientGPT.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[
+                        {"role": "system", "content": system},
+                        {"role": "user", "content": user}
+                    ],
+                    temperature=0.2
+                )
+            else:
+                raise ValueError
+        except:
+            if not st.session_state.inChina:
+                st.session_state.inChina = True
+                st.caption("Connection error. Switching to DeepSeek")
+            response = clientDS.chat.completions.create(
+                model="deepseek-chat",
+                messages=[
+                    {"role": "system", "content": system},
+                    {"role": "user", "content": user}
+                ],
+                stream=False
+            )
 
         try:
             output = eval(response.choices[0].message.content.strip())
@@ -144,11 +169,24 @@ def main(question):
 
 def get_rag_answer(prompt):
     system = "You're an assistant helping to answer questions from new students at Oriel College."
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}],
-        temperature=0.2
-    )
+    try:
+        if not st.session_state.inChina:
+            response = clientGPT.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}],
+                temperature=0.2
+            )
+        else:
+            raise ValueError
+    except:
+        if not st.session_state.inChina:
+            st.session_state.inChina = True
+            st.caption("Connection error. Switching to DeepSeek")
+        response = clientDS.chat.completions.create(
+            model="deepseek-chat",
+            messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}],
+            stream=False
+        )
     return response.choices[0].message.content.strip()
 
 st.write("Thank you for entering your access code. Please enter your question below.")
