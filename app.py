@@ -25,7 +25,7 @@ def save_access_codes(data):
     with open(ACCESS_CODES_FILE, "w") as f:
         json.dump(data, f, indent=4)
 
-st.set_page_config(page_title="Oriel Freshers RAG Chatbot", page_icon="🦉")
+st.set_page_config(page_title="Oriel Freshers Intelligent AI Chatbot", page_icon="🦉")
 st.title("Oriel College Freshers Chatbot")
 st.write("Welcome to Oriel College. This is an AI system developed by Orielensis to answer any questions you may have.")
 
