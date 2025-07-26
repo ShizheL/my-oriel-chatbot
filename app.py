@@ -208,7 +208,7 @@ if question:
         prompt = generate_prompt(question, sections)
         answer = get_rag_answer(prompt)
 
-        used = access_data[code]["count"]
+        used = access_data[code]["count"] + 1
         limit = access_data[code]["limit"]
         remaining = limit - used
         st.caption(f"💬 You have used {used} of {limit} queries ({remaining} remaining).")
