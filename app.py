@@ -218,3 +218,4 @@ if question:
     
     st.subheader("📘 Answer")
     st.markdown(answer)
+    st.caption("Disclaimer: The above response is AI generated and so, there is a small chance that the response contains mistakes.")
