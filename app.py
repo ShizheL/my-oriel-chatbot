@@ -4,53 +4,9 @@ import re
 import os
 from dotenv import load_dotenv
 import streamlit as st
-import hashlib
 
-# Function to hash the access code
-def hash_access_code(code):
-    return hashlib.sha256(code.encode('utf-8')).hexdigest()
-
-# ACCESS CHECK
-ACCESS_CODES_FILE = "access_codes.json"
-
-st.session_state.inChina = False
-
-def load_access_codes():
-    if not os.path.exists(ACCESS_CODES_FILE):
-        return {}
-    with open(ACCESS_CODES_FILE, "r") as f:
-        return json.load(f)
-
-def save_access_codes(data):
-    with open(ACCESS_CODES_FILE, "w") as f:
-        json.dump(data, f, indent=4)
-
-st.set_page_config(page_title="Oriel Freshers Intelligent AI Chatbot", page_icon="🦉")
-st.title("Oriel Freshers Intelligent AI Chatbot")
-st.write("Welcome to Oriel College. This is an AI system developed by the Oriel JCR Fresher's Rep to answer any questions you may have.")
-
-access_data = load_access_codes()
-
-if "access_granted" not in st.session_state:
-    st.session_state.access_granted = False
-
-if not st.session_state.access_granted:
-    code = st.text_input("Enter your access code:")
-    if st.button("Submit Code"):
-        hashed_code = hash_access_code(code)  # Hash the entered code
-        if hashed_code in access_data:  # Check the hash in access_data
-            st.session_state.access_code = hashed_code
-            st.session_state.access_granted = True
-            st.rerun()
-        else:
-            st.error("Invalid access code.")
-    st.stop()
-
-#MAIN PROGRAM
 load_dotenv()  # Load from .env file
-
 clientGPT = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-clientDS = OpenAI(api_key=os.getenv("DEEPSEEK_API_KEY"), base_url="https://api.deepseek.com")
 
 with open("handbook_toc.json", encoding="utf-8") as f:
     toc = json.load(f)
@@ -62,43 +18,25 @@ toc_string = "\n".join([i["section"] + " " + i["title"] for i in toc])
 
 def initial_relevant_sections(user_question):
     system = "You're an assistant helping students find information in a college handbook."
-    user = "Here is a table of contents from a student handbook: " + toc_string + "\nPlease give me all the sections that are the most likely to contain the answer to this question: \"" + user_question + "\"\nReturn only a Python list of only the section numbers (e.g. [\"1.2.\", \"2.3.\", \"APPENDIX 1\"])."
+    user = "Here is a table of contents from a student handbook: " + toc_string + " \nHere is the question from the user: \"" + user_question + "\". If this question is not relevant to any section of the handbook, please return this string \"NOT_RELEVANT\". Otherwise, return only a Python list of only the section numbers (e.g. [\"1.2.\", \"2.3.\", \"APPENDIX 1\"])."
     
-    for _ in range(3):
-        try:
-            if not st.session_state.inChina:
-                response = clientGPT.chat.completions.create(
-                    model="gpt-4o-mini",
-                    messages=[
-                        {"role": "system", "content": system},
-                        {"role": "user", "content": user}
-                    ],
-                    temperature=0.2
-                )
-            else:
-                raise ValueError
-        except:
-            if not st.session_state.inChina:
-                st.session_state.inChina = True
-                st.caption("Connection error. Switching to DeepSeek")
-            response = clientDS.chat.completions.create(
-                model="deepseek-chat",
-                messages=[
-                    {"role": "system", "content": system},
-                    {"role": "user", "content": user}
-                ],
-                stream=False
-            )
+    response = clientGPT.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": system},
+            {"role": "user", "content": user}
+        ],
+        temperature=0.2
+    )
 
-        try:
-            output = eval(response.choices[0].message.content.strip())
-            if isinstance(output, list):
-                return output
-        except:
-            pass
-
-    print("Error: Could not parse GPT output.")
-    return []
+    try:
+        if "NOT RELEVANT" in response or "NOT_RELEVANT"in response:
+            return False
+        output = eval(response.choices[0].message.content.strip())
+        if isinstance(output, list):
+            return output
+    except:
+        return False
 
 def get_question_code(s):
     s = s.lower()
@@ -169,53 +107,36 @@ def main(question):
 
 def get_rag_answer(prompt):
     system = "You're an assistant helping to answer questions from new students at Oriel College."
-    try:
-        if not st.session_state.inChina:
-            response = clientGPT.chat.completions.create(
-                model="gpt-4o-mini",
-                messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}],
-                temperature=0.2
-            )
-        else:
-            raise ValueError
-    except:
-        if not st.session_state.inChina:
-            st.session_state.inChina = True
-            st.caption("Connection error. Switching to DeepSeek")
-        response = clientDS.chat.completions.create(
-            model="deepseek-chat",
-            messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}],
-            stream=False
-        )
+    response = clientGPT.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}],
+        temperature=0.2
+    )
     return response.choices[0].message.content.strip()
 
-st.write("Thank you for entering your access code. Please enter your question below.")
+#MAIN PROGRAM
+st.set_page_config(page_title="Oriel Freshers Intelligent AI Chatbot", page_icon="🦉")
+st.title("Oriel Freshers Intelligent AI Chatbot")
+st.write("Welcome to Oriel College. This is an AI system developed by the Oriel JCR Fresher's Rep to answer any questions you may have.")
+
+st.write("Please enter your question below.")
 
 question = st.text_input("Your Question:")
 
-code = st.session_state.access_code
-current = access_data[code]["count"]
-limit = access_data[code]["limit"]
-
-if current >= limit:
-    st.error("Query limit reached for this code.")
-    st.stop()
-
 if question:
-    with st.spinner("Thinking..."):
-        initial = initial_relevant_sections(question)
-        sections = get_relevant_sections(initial)
-        prompt = generate_prompt(question, sections)
-        answer = get_rag_answer(prompt)
-
-        used = access_data[code]["count"]
-        limit = access_data[code]["limit"]
-        remaining = limit - used
-        st.caption(f"💬 You have used {used} of {limit} queries ({remaining} remaining).")
-
-    access_data[code]["count"] += 1
-    save_access_codes(access_data)
-    
-    st.subheader("📘 Answer")
-    st.markdown(answer)
-    st.caption("Disclaimer: The above response is AI generated and so, there is a small chance that the response contains mistakes.")
+    if len(question) > 400:
+        st.markdown("Maximum length of 400 characters exceeded")
+    else:
+        with st.spinner("Thinking..."):
+            initial = initial_relevant_sections(question)
+            if initial:
+                sections = get_relevant_sections(initial)
+                prompt = generate_prompt(question, sections)
+                answer = get_rag_answer(prompt)
+        
+        if initial:
+            st.subheader("📘 Answer")
+            st.markdown(answer)
+            st.caption("Disclaimer: The above response is AI generated and so there is a small chance that the response contains mistakes.")
+        else:
+            st.markdown("Unable to answer the question, please try again.")
