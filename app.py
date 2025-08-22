@@ -18,7 +18,7 @@ toc_string = "\n".join([i["section"] + " " + i["title"] for i in toc])
 
 def initial_relevant_sections(user_question):
     system = "You're an assistant helping students find information in a college handbook."
-    user = "Here is a table of contents from a student handbook: " + toc_string + " \nHere is the question from the user: \"" + user_question + "\". If this question is not relevant to any section of the handbook, please return this string \"NOT_RELEVANT\". Otherwise, return only a Python list of only the section numbers (e.g. [\"1.2.\", \"2.3.\", \"APPENDIX 1\"])."
+    user = "Here is a table of contents from a student handbook: " + toc_string + " \nHere is the question from the user: \"" + user_question + "\". If this question is not relevant to any section of the handbook and the question is not about Oriel college, please return this string \"NOT_RELEVANT\". Otherwise, return only a Python list of only the section numbers (e.g. [\"1.2.\", \"2.3.\", \"APPENDIX 1\"])."
     
     response = clientGPT.chat.completions.create(
         model="gpt-4o-mini",
