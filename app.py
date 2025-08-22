@@ -16,9 +16,24 @@ with open("structured_handbook.json", encoding="utf-8") as f:
 
 toc_string = "\n".join([i["section"] + " " + i["title"] for i in toc])
 
+def check_relevance(user_question):
+    system = "You're an expert input sanitizer for an AI assistant designed to help students find information in a college handbook."
+    user = "Here is the user's question: \"" + user_question + "\" If this question does not look like a question about things at Oriel college or Oxford, please return the string \"F\". Otherwise, return \"T\""
+
+    response = clientGPT.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": system},
+            {"role": "user", "content": user}
+        ],
+        temperature=0.2
+    )
+    response = response.choices[0].message.content.strip()
+    return ("T" in response)
+
 def initial_relevant_sections(user_question):
     system = "You're an assistant helping students find information in a college handbook."
-    user = "Here is a table of contents from a student handbook: " + toc_string + " \nHere is the question from the user: \"" + user_question + "\". If this question is not relevant to any section of the handbook and the question is not about Oriel college, please return this string \"NOT_RELEVANT\". Otherwise, return only a Python list of only the section numbers (e.g. [\"1.2.\", \"2.3.\", \"APPENDIX 1\"])."
+    user = "Here is a table of contents from a student handbook: " + toc_string + " \nHere is the question from the user: \"" + user_question + "\". Please return only a Python list of only the section numbers (e.g. [\"1.2.\", \"2.3.\", \"APPENDIX 1\"])."
     
     response = clientGPT.chat.completions.create(
         model="gpt-4o-mini",
@@ -30,8 +45,6 @@ def initial_relevant_sections(user_question):
     )
 
     try:
-        if "NOT RELEVANT" in response or "NOT_RELEVANT"in response:
-            return False
         output = eval(response.choices[0].message.content.strip())
         if isinstance(output, list):
             return output
@@ -115,7 +128,7 @@ def get_rag_answer(prompt):
     return response.choices[0].message.content.strip()
 
 #MAIN PROGRAM
-st.set_page_config(page_title="Oriel Freshers Intelligent AI Chatbot", page_icon="💡")
+st.set_page_config(page_title="Oriel Freshers Intelligent AI Chatbot", page_icon="🦉")
 st.title("Oriel Freshers Intelligent AI Chatbot")
 st.write("Welcome to Oriel College. This is an AI system developed by the Oriel JCR Fresher's Rep to answer any questions you may have.")
 
@@ -127,16 +140,19 @@ if question:
     if len(question) > 400:
         st.markdown("Maximum length of 400 characters exceeded")
     else:
-        with st.spinner("Thinking..."):
-            initial = initial_relevant_sections(question)
+        if check_relevance(question):
+            with st.spinner("Thinking..."):
+                initial = initial_relevant_sections(question)
+                if initial:
+                    sections = get_relevant_sections(initial)
+                    prompt = generate_prompt(question, sections)
+                    answer = get_rag_answer(prompt)
+            
             if initial:
-                sections = get_relevant_sections(initial)
-                prompt = generate_prompt(question, sections)
-                answer = get_rag_answer(prompt)
-        
-        if initial:
-            st.subheader("📘 Answer")
-            st.markdown(answer)
-            st.caption("Disclaimer: The above response is AI generated and so there is a small chance that the response contains mistakes.")
+                st.subheader("📘 Answer")
+                st.markdown(answer)
+                st.caption("Disclaimer: The above response is AI generated and so there is a small chance that the response contains mistakes.")
+            else:
+                st.markdown("Unable to answer the question, please try again.")
         else:
-            st.markdown("Unable to answer the question, please try again.")
+            st.markdown("Unable to answer the question, please try again. Not relevant")
