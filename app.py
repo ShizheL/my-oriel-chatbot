@@ -16,24 +16,27 @@ with open("structured_handbook.json", encoding="utf-8") as f:
 
 toc_string = "\n".join([i["section"] + " " + i["title"] for i in toc])
 
-def check_relevance(user_question):
-    system = "You're an expert input sanitizer for an AI assistant designed to help students find information in a college handbook."
-    user = "Here is the user's question: \"" + user_question + "\" If this question does not look like a question about things at Oriel college or Oxford, please return the string \"F\". Otherwise, return \"T\""
-
-    response = clientGPT.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {"role": "system", "content": system},
-            {"role": "user", "content": user}
-        ],
-        temperature=0.2
-    )
-    response = response.choices[0].message.content.strip()
-    return ("T" in response)
-
 def initial_relevant_sections(user_question):
     system = "You're an assistant helping students find information in a college handbook."
-    user = "Here is a table of contents from a student handbook: " + toc_string + " \nHere is the question from the user: \"" + user_question + "\". Please return only a Python list of only the section numbers (e.g. [\"1.2.\", \"2.3.\", \"APPENDIX 1\"])."
+    user = f"""You are given:
+    1. A table of contents from a student handbook: {toc_string}
+    2. A user question: "{user_question}"
+
+    Your task:
+    - If the question is NOT about any section in the handbook BUT IS still asking directly about an aspect regarding Oriel College or Oxford, return exactly:
+    "A"
+
+    - If the question is BOTH completely unrelated to the handbook AND not asking directly about an aspect regarding Oriel College/Oxford, return exactly:
+    "B"
+
+    - Otherwise, return ONLY a Python list of the relevant section numbers from the table of contents (e.g. ["1.2.", "2.3.", "APPENDIX 1"]).
+        - The list must contain ONLY section numbers, with no extra words.
+        - Do not invent sections not present in the table of contents.
+
+    Output rules:
+    - Return only one of: "A", "B", or a valid Python list.
+    - Do not add any explanation, commentary, or text outside the required output.
+    """
     
     response = clientGPT.chat.completions.create(
         model="gpt-4o-mini",
@@ -45,10 +48,20 @@ def initial_relevant_sections(user_question):
     )
 
     try:
-        output = eval(response.choices[0].message.content.strip())
-        if isinstance(output, list):
+        output = response.choices[0].message.content.strip()
+        print(output)
+        if output == "A":
             return output
+        elif output == "B":
+            return False
+        else:
+            output = eval(output)
+            if isinstance(output, list):
+                return output
+            else:
+                return False
     except:
+        print("No response")
         return False
 
 def get_question_code(s):
@@ -113,11 +126,6 @@ def generate_prompt(question, sections):
     prompt += "Context:\n" + context + "\n"
     return prompt
 
-def main(question):
-    initial = initial_relevant_sections(question)
-    sections = get_relevant_sections(initial)
-    return generate_prompt(question, sections)
-
 def get_rag_answer(prompt):
     system = "You're an assistant helping to answer questions from new students at Oriel College."
     response = clientGPT.chat.completions.create(
@@ -137,22 +145,22 @@ st.write("Please enter your question below.")
 question = st.text_input("Your Question:")
 
 if question:
-    if len(question) > 400:
-        st.markdown("Maximum length of 400 characters exceeded")
+    if len(question) > 250:
+        st.markdown("Maximum length of 250 characters exceeded")
     else:
-        if check_relevance(question):
-            with st.spinner("Thinking..."):
-                initial = initial_relevant_sections(question)
-                if initial:
-                    sections = get_relevant_sections(initial)
-                    prompt = generate_prompt(question, sections)
-                    answer = get_rag_answer(prompt)
-            
+        with st.spinner("Thinking..."):
+            initial = initial_relevant_sections(question)
             if initial:
-                st.subheader("📘 Answer")
-                st.markdown(answer)
-                st.caption("Disclaimer: The above response is AI generated and so there is a small chance that the response contains mistakes.")
-            else:
-                st.markdown("Unable to answer the question, please try again.")
+                if initial == "A":
+                    sections = get_relevant_sections([])
+                else:
+                    sections = get_relevant_sections(initial)
+                prompt = generate_prompt(question, sections)
+                answer = get_rag_answer(prompt)
+        
+        if initial:
+            st.subheader("📘 Answer")
+            st.markdown(answer)
+            st.caption("Disclaimer: The above response is AI generated and so there is a small chance that the response contains mistakes.")
         else:
-            st.markdown("Unable to answer the question, please try again. Not relevant")
+            st.markdown("Unable to answer the question, please try again.")
