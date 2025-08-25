@@ -138,8 +138,7 @@ def get_rag_answer(prompt):
 #MAIN PROGRAM
 st.set_page_config(page_title="Oriel Freshers Intelligent AI Chatbot", page_icon="🦉")
 st.title("Oriel Freshers Intelligent AI Chatbot")
-st.write("Welcome to Oriel College. This is an AI system developed by the Oriel JCR Fresher's Rep to answer any questions you may have.")
-
+st.write("Welcome to Oriel College! This is an AI system, developed by the Oriel JCR Fresher’s Rep, that's trained to answer any questions you may have about life at Oriel, from food and accommodation to Oxford traditions and everything in between.")
 st.write("Please enter your question below.")
 
 question = st.text_input("Your Question:")
